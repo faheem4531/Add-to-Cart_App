@@ -1,0 +1,19 @@
+<a routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">Cart</a>
+<app-loader *ngIf="isLoading"></app-loader>
+<div *ngIf="!isLoading" class="products-container">
+  <div class="product" *ngFor="let product of products">
+    <img [src]="product.image" alt="Product" />
+    <h2>{{ product.name }}</h2>
+    <p>Model: {{ product.model }}</p>
+    <p>Manufacturer: {{ product.manufacturer }}</p>
+    <p>Price: {{ product.cost_in_credits }}</p>
+    <button (click)="addToCart(product)">Add to Cart</button>
+    <button (click)="removeFromCart(product)" *ngIf="isInCart(product)">Remove from Cart</button>
+    <a [routerLink]="['/product', extractIdFromUrl(product.url)]">View Details</a>
+  </div>
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>

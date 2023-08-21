@@ -1,0 +1,16 @@
+<div class="centered-container">
+  <app-loader *ngIf="isLoading"></app-loader>
+  <div class="product-details">
+    <a [routerLink]="['/']">Back to Products</a>
+    <img [src]="selectedProduct.image" alt="Product" />
+    <h2>{{ selectedProduct.name }}</h2>
+    <p>Model: {{ selectedProduct.model }}</p>
+    <p>Manufacturer: {{ selectedProduct.manufacturer }}</p>
+    <p>Cost in Credits: {{ selectedProduct.cost_in_credits | currency }}</p>
+    <p>Length: {{ selectedProduct.length }}</p>
+    <p>Max Atmosphering Speed: {{ selectedProduct.max_atmosphering_speed }}</p>
+
+    <button (click)="addToCart(selectedProduct)">Add to Cart</button>
+    <button *ngIf="isInCart(selectedProduct)" (click)="removeFromCart(selectedProduct)">Remove from Cart</button>
+  </div>
+</div>
