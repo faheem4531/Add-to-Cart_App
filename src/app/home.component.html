@@ -22,6 +22,11 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="products.length === 0 && !isLoading" class="no-items-found">
+    No items found.
+  </div>
+
   <div class="pagination">
     <button class="btn2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
     <span>{{ currentPage }} / {{ totalPages }}</span>
