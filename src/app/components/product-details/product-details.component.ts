@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SwapiService } from '../../products.service';
 import { CartService } from 'src/app/cart.service';
 import { forkJoin } from 'rxjs';
+import { Product } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'app-product-details',
@@ -13,7 +14,7 @@ import { forkJoin } from 'rxjs';
 })
 export class ProductDetailsComponent implements OnInit {
   selectedProductId: string | null = null;
-  selectedProduct: any = {};
+  selectedProduct: Product;
   isLoading: boolean = true;
   vehiclePlaceholderImageUrl: string = 'assets/images/vehicle-placeholder.jpeg';
   starshipPlaceholderImageUrl: string = 'assets/images/starship-placeholder.jpeg';
@@ -21,7 +22,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private swapiService: SwapiService,
-    private cartService: CartService // Inject CartService
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +41,8 @@ export class ProductDetailsComponent implements OnInit {
   forkJoin([vehicles$, starships$]).subscribe(
     ([vehicles, starships]) => {
       const allProducts = [...vehicles.results, ...starships.results];
-      const foundProduct = allProducts.find((product: any) =>
-        product.url.includes(this.selectedProductId)
+      const foundProduct = allProducts.find((product: Product) =>
+        product.url.includes(this.selectedProductId || '')
       );
 
       if (foundProduct) {
@@ -63,19 +64,19 @@ export class ProductDetailsComponent implements OnInit {
   );
 }
 
-  addToCart(product: any) {
+  addToCart(product: Product) {
     this.cartService.addToCart(product);
   }
 
-  removeFromCart(product: any) {
+  removeFromCart(product: Product) {
     this.cartService.removeFromCart(product);
   }
 
-  isInCart(product: any): boolean {
+  isInCart(product: Product): boolean {
     return this.cartService.isInCart(product);
   }
 
-  getProductQuantity(product: any) {
+  getProductQuantity(product: Product) {
     return this.cartService.getProductQuantity(product);
   }
 }

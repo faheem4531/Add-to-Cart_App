@@ -3,6 +3,7 @@ import { forkJoin, Subject, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SwapiService } from './products.service';
 import { CartService } from './cart.service';
+import { Product } from './interfaces/product';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { CartService } from './cart.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  products: any = [];
+  products: Product[] = [];
   searchTerm: string = '';
   isLoading: boolean = true;
   currentPage: number = 1;
@@ -60,15 +61,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  addToCart(item: any) {
+  addToCart(item: Product) {
     this.cartService.addToCart(item);
   }
 
-  removeFromCart(item: any) {
+  removeFromCart(item: Product) {
     this.cartService.removeFromCart(item);
   }
 
-  isInCart(item: any): boolean {
+  isInCart(item: Product): boolean {
     const cartItems = this.cartService.getCartItems();
     const matchingCartItem = cartItems.find(cartItem => cartItem.url === item.url);
     return !!matchingCartItem;
@@ -173,7 +174,7 @@ export class HomeComponent implements OnInit {
     this.searchTermChanged$.next();
   }
 
-  getProductQuantity(product: any) {
+  getProductQuantity(product: Product) {
     return this.cartService.getProductQuantity(product);
   }
 

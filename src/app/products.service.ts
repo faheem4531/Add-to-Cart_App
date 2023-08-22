@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Product, ProductResponse } from './interfaces/product';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,12 @@ export class SwapiService {
 
   constructor(private http: HttpClient) {}
 
-  getVehicles(): Observable<any[]> {
+  getVehicles(): Observable<ProductResponse> {
     return this.http
       .get<any>(`${this.baseUrl}vehicles/`)
       .pipe(
         map((response) =>
-          response.results.map((vehicle: any) => ({
+          response.results.map((vehicle: Product) => ({
             ...vehicle,
             image: 'https://picsum.photos/200/200',
           }))
@@ -24,12 +25,12 @@ export class SwapiService {
       );
   }
 
-  getStarships(): Observable<any[]> {
+  getStarships(): Observable<ProductResponse> {
     return this.http
       .get<any>(`${this.baseUrl}starships/`)
       .pipe(
         map((response) =>
-          response.results.map((starship: any) => ({
+          response.results.map((starship: Product) => ({
             ...starship,
             image: 'https://picsum.photos/200/200',
           }))
@@ -37,10 +38,10 @@ export class SwapiService {
       );
   }
 
-  getProducts(type: string, page: number): Observable<any> {
+  getProducts(type: string, page: number): Observable<ProductResponse> {
     return this.http.get<any>(`${this.baseUrl}${type}/?page=${page}`).pipe(
       map(response => {
-        const products = response.results.map((product: any) => ({
+        const products = response.results.map((product: Product) => ({
           ...product,
           image: this.getImageForProduct(product) ,
           type
@@ -53,7 +54,7 @@ export class SwapiService {
     );
   }
 
-  getImageForProduct(product: any): string {
+  getImageForProduct(product: Product): string {
     let imageUrl = ''; 
     const productClass = product.vehicle_class || product.starship_class;  
     if (productClass === 'wheeled') {
@@ -73,10 +74,10 @@ export class SwapiService {
     return imageUrl;
   }
 
-  searchProducts(type: string, searchTerm: string): Observable<any> {
+  searchProducts(type: string, searchTerm: string): Observable<ProductResponse> {
     return this.http.get<any>(`${this.baseUrl}${type}/?search=${searchTerm}`).pipe(
       map(response => {
-        const products = response.results.map((product: any) => ({
+        const products = response.results.map((product: Product) => ({
           ...product,
           image: this.getImageForProduct(product)
         }));
