@@ -1,8 +1,8 @@
 <div class="centered-container parent">
   <app-loader *ngIf="isLoading"></app-loader>
-  <div class="product-details">
+  <div class="product-details" *ngIf="!isLoading">
     <div class="a">
-      <img src="../../../assets/svgs/back-icon.svg" width="20px" alt="">
+      <img src="assets/svgs/back-icon.svg" width="20px" alt="">
       <a [routerLink]="['/']">Back to Products</a>
     </div>
     <img class="img" [src]="selectedProduct.image" alt="Product" height="200" width="200" />
@@ -19,5 +19,5 @@
     </span>
     <button *ngIf="isInCart(selectedProduct)" (click)="removeFromCart(selectedProduct)">Remove from Cart</button>
   </div>
-  <img class="bg-left" src="../../../assets/images/bg-leftHalf.png" alt="">
+  <img class="bg-left" src="assets/images/bg-leftHalf.png" alt="">
 </div>

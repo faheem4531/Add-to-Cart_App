@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, Subject, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { ProductsService } from '../../services/products.service';
-import { CartService } from '../../services/cart.service';
-import { Product } from '../../interfaces/product';
+
+import { ProductsService } from 'src/app/services/products.service';
+import { CartService } from 'src/app/services/cart.service';
+import { Product } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'app-products',
@@ -176,6 +177,10 @@ export class ProductsComponent implements OnInit {
 
   getProductQuantity(product: Product) {
     return this.cartService.getProductQuantity(product);
+  }
+
+  getTotalCartItems(): number {
+    return this.cartService.getTotalCartItems();
   }
 
 }

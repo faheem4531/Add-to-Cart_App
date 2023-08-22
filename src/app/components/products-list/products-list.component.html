@@ -2,9 +2,9 @@
   <div class="header">
     <div class="a" *ngIf="!isLoading">
       <a class="card-title" routerLink="/cart" routerLinkActive="active">
-        <img src="../assets/svgs/cart-icon.svg" width="20px" alt="cart-icon">
+        <img src="assets/svgs/cart-icon.svg" width="20px" alt="cart-icon">
         Cart
-        <span class="value">2</span>
+        <span class="value">{{ getTotalCartItems() }}</span>
       </a>
     </div>
     <input class="input" type="text" [(ngModel)]="searchTerm" placeholder="Search by name or model" id="search-input"
@@ -33,13 +33,13 @@
     No items found.
   </div>
 
-  <div class="pagination">
+  <div class="pagination" *ngIf="products.length !== 0">
     <button class="btn2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
     <span>{{ currentPage }} / {{ totalPages }}</span>
     <button class="btn2" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
 
-  <img class="bg-left" src="../assets/images/bg-leftHalf.png" alt="">
-  <img class="bg-right" src="../assets/images/bg-rightHalf.png" alt="">
+  <img class="bg-left" src="assets/images/bg-leftHalf.png" alt="">
+  <img class="bg-right" src="assets/images/bg-rightHalf.png" alt="">
 
 </div>

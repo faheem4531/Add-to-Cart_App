@@ -1,9 +1,7 @@
-// cart.service.ts
-
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { Product } from '../interfaces/product';
+import { Product } from 'src/app/interfaces/product';
 
 @Injectable({
   providedIn: 'root',
@@ -49,5 +47,9 @@ export class CartService {
   getProductQuantity(product: Product): number {
     const cartItem = this.cartItems.find(item => item.url === product.url);
     return cartItem ? cartItem.quantity : 0;
+  }
+
+  getTotalCartItems(): number {
+    return this.cartItems.reduce((total, item) => total + item.quantity, 0);
   }
 }

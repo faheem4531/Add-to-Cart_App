@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CartComponent } from './components/cart/cart.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import { ProductsComponent } from './components/products-list/products-list.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AppComponent } from 'src/app/app.component';
+import { CartComponent } from 'src/app/components/cart/cart.component';
+import { ProductDetailsComponent } from 'src/app/components/product-details/product-details.component';
+import { LoaderComponent } from 'src/app/components/loader/loader.component';
+import { ProductsComponent } from 'src/app/components/products-list/products-list.component';
 
 @NgModule({
   declarations: [

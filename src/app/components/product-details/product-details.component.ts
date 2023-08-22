@@ -1,10 +1,9 @@
-// product-details.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../services/products.service';
-import { CartService } from 'src/app/services/cart.service';
 import { forkJoin } from 'rxjs';
+
+import { ProductsService } from 'src/app/services/products.service';
+import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/interfaces/product';
 
 @Component({

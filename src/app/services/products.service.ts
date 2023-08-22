@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Product, ProductResponse } from '../interfaces/product';
+import { Observable } from 'rxjs';
+
+import { Product, ProductResponse } from 'src/app/interfaces/product';
 
 @Injectable({
   providedIn: 'root',
@@ -12,34 +13,8 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  getVehicles(): Observable<ProductResponse> {
-    return this.http
-      .get<any>(`${this.baseUrl}vehicles/`)
-      .pipe(
-        map((response) =>
-          response.results.map((vehicle: Product) => ({
-            ...vehicle,
-            image: 'https://picsum.photos/200/200',
-          }))
-        )
-      );
-  }
-
-  getStarships(): Observable<ProductResponse> {
-    return this.http
-      .get<any>(`${this.baseUrl}starships/`)
-      .pipe(
-        map((response) =>
-          response.results.map((starship: Product) => ({
-            ...starship,
-            image: 'https://picsum.photos/200/200',
-          }))
-        )
-      );
-  }
-
   getProducts(type: string, page: number): Observable<ProductResponse> {
-    return this.http.get<any>(`${this.baseUrl}${type}/?page=${page}`).pipe(
+    return this.http.get<ProductResponse>(`${this.baseUrl}${type}/?page=${page}`).pipe(
       map(response => {
         const products = response.results.map((product: Product) => ({
           ...product,
@@ -75,7 +50,7 @@ export class ProductsService {
   }
 
   searchProducts(type: string, searchTerm: string): Observable<ProductResponse> {
-    return this.http.get<any>(`${this.baseUrl}${type}/?search=${searchTerm}`).pipe(
+    return this.http.get<ProductResponse>(`${this.baseUrl}${type}/?search=${searchTerm}`).pipe(
       map(response => {
         const products = response.results.map((product: Product) => ({
           ...product,
