@@ -1,10 +1,8 @@
 <div class="containerr">
   <div class="header">
     <a class="card-title" routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">Cart</a>
-    <!-- <div class="search-container"> -->
     <input class="input" type="text" [(ngModel)]="searchTerm" placeholder="Search by name or model" id="search-input"
       [hidden]="isLoading" />
-    <!-- </div> -->
   </div>
   <app-loader *ngIf="isLoading"></app-loader>
   <div *ngIf="!isLoading" class="products-container">
@@ -16,6 +14,9 @@
         <p>Manufacturer: <span class="data">{{ product.manufacturer }}</span> </p>
         <p>Price: <span class="data2">{{ product.cost_in_credits }}</span> </p>
         <button class="btn" (click)="addToCart(product)">Add</button>
+        <p *ngIf="isInCart(product)">
+          {{ getProductQuantity(product) }}
+        </p>
         <button class="btn" (click)="removeFromCart(product)" *ngIf="isInCart(product)">Remove</button>
         <a class="view-details" [routerLink]="['/product', extractIdFromUrl(product.url)]">View Details</a>
       </div>

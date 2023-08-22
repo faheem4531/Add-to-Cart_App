@@ -70,7 +70,8 @@ export class HomeComponent implements OnInit {
 
   isInCart(item: any): boolean {
     const cartItems = this.cartService.getCartItems();
-    return cartItems.includes(item);
+    const matchingCartItem = cartItems.find(cartItem => cartItem.url === item.url);
+    return !!matchingCartItem;
   }
 
   extractIdFromUrl(url: string): string {
@@ -170,6 +171,10 @@ export class HomeComponent implements OnInit {
 
   updateSearchTerm() {
     this.searchTermChanged$.next();
+  }
+
+  getProductQuantity(product: any) {
+    return this.cartService.getProductQuantity(product);
   }
 
 }

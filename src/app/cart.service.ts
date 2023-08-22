@@ -12,14 +12,26 @@ export class CartService {
   cart$ = this.cartSubject.asObservable();
 
   addToCart(item: any) {
-    this.cartItems.push(item);
+    const existingItem = this.cartItems.find(cartItem => cartItem.url === item.url);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      this.cartItems.push({ ...item, quantity: 1 });
+    }
     this.cartSubject.next(this.cartItems);
   }
 
   removeFromCart(item: any) {
-    const index = this.cartItems.indexOf(item);
-    if (index !== -1) {
-      this.cartItems.splice(index, 1);
+    const existingItem = this.cartItems.find(cartItem => cartItem.url === item.url);
+    if (existingItem) {
+      if (existingItem.quantity > 1) {
+        existingItem.quantity -= 1;
+      } else {
+        const index = this.cartItems.indexOf(existingItem);
+        if (index !== -1) {
+          this.cartItems.splice(index, 1);
+        }
+      }
       this.cartSubject.next(this.cartItems);
     }
   }
@@ -29,6 +41,11 @@ export class CartService {
   }
 
   isInCart(product: any): boolean {
-    return this.cartItems.some((item) => item.id === product.id);
+    return this.cartItems.some((item) => item.url === product.url);
+  }
+
+  getProductQuantity(product: any): number {
+    const cartItem = this.cartItems.find(item => item.url === product.url);
+    return cartItem ? cartItem.quantity : 0;
   }
 }
