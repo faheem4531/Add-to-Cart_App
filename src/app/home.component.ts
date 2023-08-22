@@ -38,7 +38,8 @@ export class HomeComponent implements OnInit {
       ([vehicles, starships]) => {
         this.isLoading = false;
         this.products = [...vehicles.results, ...starships.results];
-        this.totalPages = Math.ceil(vehicles.count / 10);
+        const maxTotal = Math.max(vehicles.count, starships.count);
+        this.totalPages = Math.ceil(maxTotal / 10);
         this.fillMissingImages();
       },
       (error) => {
@@ -78,11 +79,7 @@ export class HomeComponent implements OnInit {
   }
 
   nextPage() {
-    if (
-      this.currentPage < this.totalPages &&
-      this.currentPage < this.totalPages &&
-      this.currentPage < Math.min(this.totalPages, this.totalPages)
-    ) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.fetchAllData();
     }
@@ -109,7 +106,8 @@ export class HomeComponent implements OnInit {
     forkJoin([vehicles$, starships$]).subscribe(
       ([vehicles, starships]) => {
         this.products = [...vehicles.results, ...starships.results];
-        this.totalPages = Math.ceil(vehicles.count / 10);
+        const maxTotal = Math.max(vehicles.count, starships.count);
+        this.totalPages = Math.ceil(maxTotal / 10);
         this.fillMissingImages();
         this.isLoading = false;
       },
@@ -125,8 +123,12 @@ export class HomeComponent implements OnInit {
   }
 
   private setupSearchInput() {
-    const searchInput = document.getElementById('search-input') as HTMLInputElement;
-    const searchInput$ = fromEvent(searchInput, 'input').pipe(debounceTime(1000));
+    const searchInput = document.getElementById(
+      'search-input'
+    ) as HTMLInputElement;
+    const searchInput$ = fromEvent(searchInput, 'input').pipe(
+      debounceTime(1000)
+    );
 
     searchInput$.subscribe(() => {
       this.searchProducts();
@@ -148,7 +150,8 @@ export class HomeComponent implements OnInit {
       forkJoin([vehicles$, starships$]).subscribe(
         ([vehicles, starships]) => {
           this.products = [...vehicles.results, ...starships.results];
-          this.totalPages = Math.ceil(vehicles.count / 10);
+          const maxTotal = Math.max(vehicles.count, starships.count);
+          this.totalPages = Math.ceil(maxTotal / 10);
           this.fillMissingImages();
           this.currentPage = 1;
           this.isLoading = false;
