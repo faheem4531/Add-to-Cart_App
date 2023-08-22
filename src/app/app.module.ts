@@ -5,18 +5,18 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { ProductsComponent } from './components/products-list/products-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     CartComponent,
     ProductDetailsComponent,
     LoaderComponent,
+    ProductsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

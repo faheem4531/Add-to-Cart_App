@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, Subject, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SwapiService } from './products.service';
-import { CartService } from './cart.service';
-import { Product } from './interfaces/product';
+import { SwapiService } from '../../products.service';
+import { CartService } from '../../cart.service';
+import { Product } from '../../interfaces/product';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-products',
+  templateUrl: './products-list.component.html',
+  styleUrls: ['./products-list.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class ProductsComponent implements OnInit {
   products: Product[] = [];
   searchTerm: string = '';
   isLoading: boolean = true;
