@@ -74,4 +74,8 @@ export class ProductDetailsComponent implements OnInit {
   isInCart(product: any): boolean {
     return this.cartService.isInCart(product);
   }
+
+  getProductQuantity(product: any) {
+    return this.cartService.getProductQuantity(product);
+  }
 }
