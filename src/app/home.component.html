@@ -1,23 +1,33 @@
-<a routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">Cart</a>
-<div class="search-container">
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name or model" id="search-input"
-    [hidden]="isLoading" />
-</div>
-<app-loader *ngIf="isLoading"></app-loader>
-<div *ngIf="!isLoading" class="products-container">
-  <div class="product" *ngFor="let product of products">
-    <img [src]="product.image" alt="Product" height="200" width="200" />
-    <h2>{{ product.name }}</h2>
-    <p>Model: {{ product.model }}</p>
-    <p>Manufacturer: {{ product.manufacturer }}</p>
-    <p>Price: {{ product.cost_in_credits }}</p>
-    <button (click)="addToCart(product)">Add to Cart</button>
-    <button (click)="removeFromCart(product)" *ngIf="isInCart(product)">Remove from Cart</button>
-    <a [routerLink]="['/product', extractIdFromUrl(product.url)]">View Details</a>
+<div class="containerr">
+  <div class="header">
+    <a class="card-title" routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">Cart</a>
+    <!-- <div class="search-container"> -->
+    <input class="input" type="text" [(ngModel)]="searchTerm" placeholder="Search by name or model" id="search-input"
+      [hidden]="isLoading" />
+    <!-- </div> -->
+  </div>
+  <app-loader *ngIf="isLoading"></app-loader>
+  <div *ngIf="!isLoading" class="products-container">
+    <div class="product" *ngFor="let product of products">
+      <img class="img" [src]="product.image" alt="Product" />
+      <div class="card-content">
+        <h2>{{ product.name }}</h2>
+        <p>Model: <span class="data">{{ product.model }} {{ product.model }}</span> </p>
+        <p>Manufacturer: <span class="data">{{ product.manufacturer }}</span> </p>
+        <p>Price: <span class="data2">{{ product.cost_in_credits }}</span> </p>
+        <button class="btn" (click)="addToCart(product)">Add</button>
+        <button class="btn" (click)="removeFromCart(product)" *ngIf="isInCart(product)">Remove</button>
+        <a class="view-details" [routerLink]="['/product', extractIdFromUrl(product.url)]">View Details</a>
+      </div>
+    </div>
   </div>
   <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <button class="btn2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
     <span>{{ currentPage }} / {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    <button class="btn2" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
+
+  <img class="bg-left" src="../assets/images/bg-leftHalf.png" alt="">
+  <img class="bg-right" src="../assets/images/bg-rightHalf.png" alt="">
+
 </div>
