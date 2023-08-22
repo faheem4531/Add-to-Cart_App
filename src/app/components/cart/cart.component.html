@@ -9,14 +9,17 @@
     Your cart is empty.
   </div>
 
-  <div *ngIf="cartItems.length > 0">
+
+  <div class="cart-main" *ngIf="cartItems.length > 0">
     <div class="cart-item" *ngFor="let item of cartItems">
       <img class="img" [src]="item.image" alt="{{ item.name }}" />
-      <h2>{{ item.name }}</h2>
-      <p>Model: <span>{{ item.model }}</span> </p>
-      <p>Price: <span class="price">${{ item.cost_in_credits }}</span> </p>
-      <p>Quantity: {{ item.quantity }}</p>
-      <button (click)="removeFromCart(item)">Remove</button>
+      <div>
+        <h2>{{ item.name }}</h2>
+        <p style="width: 200px;">Model: <span>{{ item.model }}</span> </p>
+        <p>Price: <span class="price">${{ item.cost_in_credits }}</span> </p>
+        <p>Quantity: <span>{{ item.quantity }}</span> </p>
+        <button (click)="removeFromCart(item)">Remove</button>
+      </div>
     </div>
   </div>
 </div>
