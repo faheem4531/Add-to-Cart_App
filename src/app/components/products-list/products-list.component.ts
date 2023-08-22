@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, Subject, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SwapiService } from '../../products.service';
-import { CartService } from '../../cart.service';
+import { ProductsService } from '../../services/products.service';
+import { CartService } from '../../services/cart.service';
 import { Product } from '../../interfaces/product';
 
 @Component({
@@ -21,16 +21,16 @@ export class ProductsComponent implements OnInit {
     'assets/images/starship-placeholder.jpeg';
 
   constructor(
-    private swapiService: SwapiService,
+    private productsService: ProductsService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    const vehicles$ = this.swapiService.getProducts(
+    const vehicles$ = this.productsService.getProducts(
       'vehicles',
       this.currentPage
     );
-    const starships$ = this.swapiService.getProducts(
+    const starships$ = this.productsService.getProducts(
       'starships',
       this.currentPage
     );
@@ -96,11 +96,11 @@ export class ProductsComponent implements OnInit {
 
   fetchAllData() {
     this.isLoading = true;
-    const vehicles$ = this.swapiService.getProducts(
+    const vehicles$ = this.productsService.getProducts(
       'vehicles',
       this.currentPage
     );
-    const starships$ = this.swapiService.getProducts(
+    const starships$ = this.productsService.getProducts(
       'starships',
       this.currentPage
     );
@@ -140,11 +140,11 @@ export class ProductsComponent implements OnInit {
   searchProducts() {
     if (this.searchTerm) {
       this.isLoading = true;
-      const vehicles$ = this.swapiService.searchProducts(
+      const vehicles$ = this.productsService.searchProducts(
         'vehicles',
         this.searchTerm
       );
-      const starships$ = this.swapiService.searchProducts(
+      const starships$ = this.productsService.searchProducts(
         'starships',
         this.searchTerm
       );

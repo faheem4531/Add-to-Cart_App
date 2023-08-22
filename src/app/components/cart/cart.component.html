@@ -14,7 +14,8 @@
       <img class="img" [src]="item.image" alt="{{ item.name }}" />
       <h2>{{ item.name }}</h2>
       <p>Model: <span>{{ item.model }}</span> </p>
-      <p>Price: <span class="price">{{ item.cost_in_credits }}</span> </p>
+      <p>Price: <span class="price">${{ item.cost_in_credits }}</span> </p>
+      <p>Quantity: {{ item.quantity }}</p>
       <button (click)="removeFromCart(item)">Remove</button>
     </div>
   </div>

@@ -9,7 +9,7 @@
     <h2>{{ selectedProduct.name }}</h2>
     <p>Model: <span>{{ selectedProduct.model }}</span> </p>
     <p>Manufacturer: <span>{{ selectedProduct.manufacturer }}</span> </p>
-    <p>Cost in Credits: <span class="price">{{ selectedProduct.cost_in_credits | currency }}</span></p>
+    <p>Cost in Credits: <span class="price">${{ selectedProduct.cost_in_credits }}</span></p>
     <p>Length: <span>{{ selectedProduct.length }}</span></p>
     <p>Max Atmosphering Speed: <span>{{ selectedProduct.max_atmosphering_speed }}</span> </p>
 

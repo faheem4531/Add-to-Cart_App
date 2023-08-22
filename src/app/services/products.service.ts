@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Product, ProductResponse } from './interfaces/product';
+import { Product, ProductResponse } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SwapiService {
+export class ProductsService {
   private baseUrl = 'https://swapi.dev/api/';
 
   constructor(private http: HttpClient) {}

@@ -2,8 +2,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SwapiService } from '../../products.service';
-import { CartService } from 'src/app/cart.service';
+import { ProductsService } from '../../services/products.service';
+import { CartService } from 'src/app/services/cart.service';
 import { forkJoin } from 'rxjs';
 import { Product } from 'src/app/interfaces/product';
 
@@ -21,7 +21,7 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private swapiService: SwapiService,
+    private productsService: ProductsService,
     private cartService: CartService
   ) {}
 
@@ -35,8 +35,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   fetchProductDetails() {
-    const vehicles$ = this.swapiService.getProducts('vehicles', 1);
-  const starships$ = this.swapiService.getProducts('starships', 1);
+    const vehicles$ = this.productsService.getProducts('vehicles', 1);
+  const starships$ = this.productsService.getProducts('starships', 1);
 
   forkJoin([vehicles$, starships$]).subscribe(
     ([vehicles, starships]) => {

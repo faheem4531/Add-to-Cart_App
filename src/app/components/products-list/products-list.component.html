@@ -18,7 +18,7 @@
         <h2>{{ product.name }}</h2>
         <p>Model: <span class="data">{{ product.model }} {{ product.model }}</span> </p>
         <p>Manufacturer: <span class="data">{{ product.manufacturer }}</span> </p>
-        <p>Price: <span class="data2">{{ product.cost_in_credits }}</span> </p>
+        <p>Price: <span class="data2">${{ product.cost_in_credits }}</span> </p>
         <button class="btn" (click)="addToCart(product)">Add to Cart</button>
         <p class="quantity" *ngIf="isInCart(product)">
           {{ getProductQuantity(product) }}
