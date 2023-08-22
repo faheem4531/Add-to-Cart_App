@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { SwapiService } from './products.service';
 import { CartService } from './cart.service';
 
@@ -10,11 +11,13 @@ import { CartService } from './cart.service';
 })
 export class HomeComponent implements OnInit {
   products: any = [];
+  searchTerm: string = '';
   isLoading: boolean = true;
   currentPage: number = 1;
   totalPages: number = 0;
   vehiclePlaceholderImageUrl: string = 'assets/images/vehicle-placeholder.jpeg';
-  starshipPlaceholderImageUrl: string = 'assets/images/starship-placeholder.jpeg';
+  starshipPlaceholderImageUrl: string =
+    'assets/images/starship-placeholder.jpeg';
 
   constructor(
     private swapiService: SwapiService,
@@ -48,7 +51,10 @@ export class HomeComponent implements OnInit {
   fillMissingImages() {
     for (const product of this.products) {
       if (!product.image) {
-        product.image = product.type === 'vehicles' ? this.vehiclePlaceholderImageUrl : this.starshipPlaceholderImageUrl;
+        product.image =
+          product.type === 'vehicles'
+            ? this.vehiclePlaceholderImageUrl
+            : this.starshipPlaceholderImageUrl;
       }
     }
   }
@@ -103,6 +109,7 @@ export class HomeComponent implements OnInit {
     forkJoin([vehicles$, starships$]).subscribe(
       ([vehicles, starships]) => {
         this.products = [...vehicles.results, ...starships.results];
+        this.totalPages = Math.ceil(vehicles.count / 10);
         this.fillMissingImages();
         this.isLoading = false;
       },
@@ -112,4 +119,54 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+  ngAfterViewInit(): void {
+    this.setupSearchInput();
+  }
+
+  private setupSearchInput() {
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const searchInput$ = fromEvent(searchInput, 'input').pipe(debounceTime(1000));
+
+    searchInput$.subscribe(() => {
+      this.searchProducts();
+    });
+  }
+
+  searchProducts() {
+    if (this.searchTerm) {
+      this.isLoading = true;
+      const vehicles$ = this.swapiService.searchProducts(
+        'vehicles',
+        this.searchTerm
+      );
+      const starships$ = this.swapiService.searchProducts(
+        'starships',
+        this.searchTerm
+      );
+
+      forkJoin([vehicles$, starships$]).subscribe(
+        ([vehicles, starships]) => {
+          this.products = [...vehicles.results, ...starships.results];
+          this.totalPages = Math.ceil(vehicles.count / 10);
+          this.fillMissingImages();
+          this.currentPage = 1;
+          this.isLoading = false;
+        },
+        (error) => {
+          console.log(error);
+          this.isLoading = false;
+        }
+      );
+    } else {
+      this.fetchAllData();
+    }
+  }
+
+  private searchTermChanged$ = new Subject<void>();
+
+  updateSearchTerm() {
+    this.searchTermChanged$.next();
+  }
+
 }

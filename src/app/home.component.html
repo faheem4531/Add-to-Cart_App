@@ -1,4 +1,8 @@
 <a routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">Cart</a>
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name or model" id="search-input"
+    [hidden]="isLoading" />
+</div>
 <app-loader *ngIf="isLoading"></app-loader>
 <div *ngIf="!isLoading" class="products-container">
   <div class="product" *ngFor="let product of products">
