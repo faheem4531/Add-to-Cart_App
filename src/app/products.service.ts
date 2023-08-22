@@ -38,6 +38,18 @@ export class SwapiService {
   }
 
   getProducts(type: string, page: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${type}/?page=${page}`);
+    return this.http.get<any>(`${this.baseUrl}${type}/?page=${page}`).pipe(
+      map(response => {
+        const products = response.results.map((product: any) => ({
+          ...product,
+          image: '',
+          type
+        }));
+        return {
+          ...response,
+          results: products
+        };
+      })
+    );
   }
 }

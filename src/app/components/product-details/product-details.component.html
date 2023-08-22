@@ -2,7 +2,7 @@
   <app-loader *ngIf="isLoading"></app-loader>
   <div class="product-details">
     <a [routerLink]="['/']">Back to Products</a>
-    <img [src]="selectedProduct.image" alt="Product" />
+    <img [src]="selectedProduct.image" alt="Product" height="200" width="200" />
     <h2>{{ selectedProduct.name }}</h2>
     <p>Model: {{ selectedProduct.model }}</p>
     <p>Manufacturer: {{ selectedProduct.manufacturer }}</p>

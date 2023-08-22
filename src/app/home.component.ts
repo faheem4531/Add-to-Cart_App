@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   isLoading: boolean = true;
   currentPage: number = 1;
   totalPages: number = 0;
+  vehiclePlaceholderImageUrl: string = 'assets/images/vehicle-placeholder.jpeg';
+  starshipPlaceholderImageUrl: string = 'assets/images/starship-placeholder.jpeg';
 
   constructor(
     private swapiService: SwapiService,
@@ -34,12 +36,21 @@ export class HomeComponent implements OnInit {
         this.isLoading = false;
         this.products = [...vehicles.results, ...starships.results];
         this.totalPages = Math.ceil(vehicles.count / 10);
+        this.fillMissingImages();
       },
       (error) => {
         console.log(error);
         this.isLoading = false;
       }
     );
+  }
+
+  fillMissingImages() {
+    for (const product of this.products) {
+      if (!product.image) {
+        product.image = product.type === 'vehicles' ? this.vehiclePlaceholderImageUrl : this.starshipPlaceholderImageUrl;
+      }
+    }
   }
 
   addToCart(item: any) {
@@ -92,6 +103,7 @@ export class HomeComponent implements OnInit {
     forkJoin([vehicles$, starships$]).subscribe(
       ([vehicles, starships]) => {
         this.products = [...vehicles.results, ...starships.results];
+        this.fillMissingImages();
         this.isLoading = false;
       },
       (error) => {

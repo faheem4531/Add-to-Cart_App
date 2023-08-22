@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SwapiService } from '../../products.service';
 import { CartService } from 'src/app/cart.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -14,6 +15,8 @@ export class ProductDetailsComponent implements OnInit {
   selectedProductId: string | null = null;
   selectedProduct: any = {};
   isLoading: boolean = true;
+  vehiclePlaceholderImageUrl: string = 'assets/images/vehicle-placeholder.jpeg';
+  starshipPlaceholderImageUrl: string = 'assets/images/starship-placeholder.jpeg';
 
   constructor(
     private route: ActivatedRoute,
@@ -31,38 +34,34 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   fetchProductDetails() {
-    this.swapiService.getProducts('vehicles', 1).subscribe(
-      (vehicles) => {
-        const foundProduct = vehicles.results.find((vehicle: any) =>
-          vehicle.url.includes(this.selectedProductId)
-        );
-        if (foundProduct) {
-          this.selectedProduct = foundProduct;
-        }
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-      }
-    );
+    const vehicles$ = this.swapiService.getProducts('vehicles', 1);
+  const starships$ = this.swapiService.getProducts('starships', 1);
 
-    this.swapiService.getProducts('starships', 1).subscribe(
-      (vehicles) => {
-        const foundProduct = vehicles.results.find((vehicle: any) =>
-          vehicle.url.includes(this.selectedProductId)
-        );
-        if (foundProduct) {
-          this.selectedProduct = foundProduct;
+  forkJoin([vehicles$, starships$]).subscribe(
+    ([vehicles, starships]) => {
+      const allProducts = [...vehicles.results, ...starships.results];
+      const foundProduct = allProducts.find((product: any) =>
+        product.url.includes(this.selectedProductId)
+      );
+
+      if (foundProduct) {
+        this.selectedProduct = foundProduct;
+        if (!this.selectedProduct.image) {
+          this.selectedProduct.image =
+            this.selectedProduct.type === 'vehicles'
+              ? this.vehiclePlaceholderImageUrl
+              : this.starshipPlaceholderImageUrl;
         }
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
       }
-    );
-  }
+
+      this.isLoading = false;
+    },
+    (error) => {
+      console.log(error);
+      this.isLoading = false;
+    }
+  );
+}
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
