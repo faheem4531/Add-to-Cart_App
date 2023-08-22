@@ -1,6 +1,9 @@
 <div class="containerr">
   <div class="header">
-    <a class="card-title" routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">Cart</a>
+    <div class="a">
+      <a class="card-title" routerLink="/cart" routerLinkActive="active" *ngIf="!isLoading">View Cart</a>
+      <img src="../assets/svgs/cart-icon.svg" width="20px" alt="cart-icon">
+    </div>
     <input class="input" type="text" [(ngModel)]="searchTerm" placeholder="Search by name or model" id="search-input"
       [hidden]="isLoading" />
   </div>
@@ -14,7 +17,7 @@
         <p>Manufacturer: <span class="data">{{ product.manufacturer }}</span> </p>
         <p>Price: <span class="data2">{{ product.cost_in_credits }}</span> </p>
         <button class="btn" (click)="addToCart(product)">Add</button>
-        <p *ngIf="isInCart(product)">
+        <p class="quantity" *ngIf="isInCart(product)">
           {{ getProductQuantity(product) }}
         </p>
         <button class="btn" (click)="removeFromCart(product)" *ngIf="isInCart(product)">Remove</button>

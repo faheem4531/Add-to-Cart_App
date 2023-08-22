@@ -1,3 +1,106 @@
 .parent {
-  background-color: red;
+  background-color: #121212;
+  color: #fff;
+  padding: 20px 20px 20px 80px;
+  position: relative;
+}
+
+.img {
+  width: 55%;
+  height: 30%;
+  border-radius: 10px;
+}
+
+a {
+  padding-left: 5px;
+  color: #c0bebe;
+  text-decoration: none;
+}
+
+.a {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  width: 140px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #282828;
+}
+
+h2 {
+  font-size: 32px
+}
+
+p {
+  margin: 12px 0;
+}
+
+button {
+  margin: 30px 20px 0 0;
+  border: 1px solid #FFAE1B;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 8px 20px;
+  color: #FFAE1B;
+  font-size: 14px;
+}
+
+span {
+  color: #949494;
+  font-size: 14px;
+}
+
+.price {
+  color: #FFAE1B;
+}
+
+.bg-left {
+  display: initial;
+  position: absolute;
+  bottom: 100px;
+  right: 0px;
+}
+
+
+@media (max-width: 1200px) {
+  .bg-left {
+    display: none;
+  }
+
+  .img {
+    width: 55%;
+    height: 30%;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .img {
+    width: 70%;
+    height: 40%;
+  }
+
+  .parent {
+    padding-left: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  h2 {
+    font-size: 28px
+  }
+
+  .img {
+    width: 100%;
+    height: 50%;
+  }
+
+  .parent {
+    padding: 20px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
 }

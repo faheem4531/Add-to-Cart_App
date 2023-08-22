@@ -7,6 +7,14 @@ h2 {
   margin-bottom: 10px;
 }
 
+.a {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  border-radius: 10px;
+  background-color: #282828;
+}
+
 .containerr {
   background-color: #121212;
   font-family: Nunito;
@@ -27,6 +35,7 @@ h2 {
   border-radius: 4px;
   margin-left: auto;
   backdrop-filter: blur(6px);
+  width: 160px;
 }
 
 .input:focus {
@@ -35,9 +44,10 @@ h2 {
 
 .card-title {
   text-decoration: none;
-  font-size: 32px;
-  font-weight: 700;
-  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  color: #c0bebe;
+  margin-right: 10px;
 }
 
 .card-title:hover {
@@ -75,7 +85,6 @@ h2 {
   background-color: transparent;
   border-radius: 10px;
   padding: 7px 9px;
-  margin-right: 5px;
   color: #FFAE1B;
   font-size: 14px;
 }
@@ -88,6 +97,7 @@ h2 {
   text-decoration: none;
   font-size: 14px;
   color: #949494;
+  margin-left: 5px;
 }
 
 .view-details:hover {
@@ -146,6 +156,11 @@ p {
   width: 100px;
   cursor: pointer;
   text-align: center;
+}
+
+.quantity {
+  display: inline;
+  padding: 0 5px;
 }
 
 @media (max-width: 992px) {

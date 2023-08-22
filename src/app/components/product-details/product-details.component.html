@@ -1,16 +1,20 @@
 <div class="centered-container parent">
   <app-loader *ngIf="isLoading"></app-loader>
   <div class="product-details">
-    <a [routerLink]="['/']">Back to Products</a>
-    <img [src]="selectedProduct.image" alt="Product" height="200" width="200" />
+    <div class="a">
+      <img src="../../../assets/svgs/back-icon.svg" width="20px" alt="">
+      <a [routerLink]="['/']">Back to Products</a>
+    </div>
+    <img class="img" [src]="selectedProduct.image" alt="Product" height="200" width="200" />
     <h2>{{ selectedProduct.name }}</h2>
-    <p>Model: {{ selectedProduct.model }}</p>
-    <p>Manufacturer: {{ selectedProduct.manufacturer }}</p>
-    <p>Cost in Credits: {{ selectedProduct.cost_in_credits | currency }}</p>
-    <p>Length: {{ selectedProduct.length }}</p>
-    <p>Max Atmosphering Speed: {{ selectedProduct.max_atmosphering_speed }}</p>
+    <p>Model: <span>{{ selectedProduct.model }}</span> </p>
+    <p>Manufacturer: <span>{{ selectedProduct.manufacturer }}</span> </p>
+    <p>Cost in Credits: <span class="price">{{ selectedProduct.cost_in_credits | currency }}</span></p>
+    <p>Length: <span>{{ selectedProduct.length }}</span></p>
+    <p>Max Atmosphering Speed: <span>{{ selectedProduct.max_atmosphering_speed }}</span> </p>
 
     <button (click)="addToCart(selectedProduct)">Add to Cart</button>
     <button *ngIf="isInCart(selectedProduct)" (click)="removeFromCart(selectedProduct)">Remove from Cart</button>
   </div>
+  <img class="bg-left" src="../../../assets/images/bg-leftHalf.png" alt="">
 </div>

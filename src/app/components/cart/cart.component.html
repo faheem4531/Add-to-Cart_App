@@ -1,17 +1,21 @@
-<a [routerLink]="['/']">Back to Products</a>
-<h1>Your Cart</h1>
+<div class="parent">
+  <div class="a">
+    <img src="../../../assets/svgs/back-icon.svg" width="20px" alt="">
+    <a [routerLink]="['/']">Back to Products</a>
+  </div>
+  <h1>Your Cart</h1>
 
-<div *ngIf="cartItems.length === 0">
-  Your cart is empty.
-</div>
+  <div *ngIf="cartItems.length === 0">
+    Your cart is empty.
+  </div>
 
-<div *ngIf="cartItems.length > 0">
-  <div class="cart-item" *ngFor="let item of cartItems">
-    <img [src]="item.image" alt="{{ item.name }}" />
-    <h2>{{ item.name }}</h2>
-    <p>Model: {{ item.model }}</p>
-    <p>Price: {{ item.cost_in_credits }}</p>
-    <p>Quantity: {{ item.quantity }}</p>
-    <button (click)="removeFromCart(item)">Remove</button>
+  <div *ngIf="cartItems.length > 0">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <img class="img" [src]="item.image" alt="{{ item.name }}" />
+      <h2>{{ item.name }}</h2>
+      <p>Model: <span>{{ item.model }}</span> </p>
+      <p>Price: <span class="price">{{ item.cost_in_credits }}</span> </p>
+      <button (click)="removeFromCart(item)">Remove</button>
+    </div>
   </div>
 </div>
